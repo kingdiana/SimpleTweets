@@ -24,9 +24,14 @@ import org.scribe.builder.api.TwitterApi;
 public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
 	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
-	public static final String REST_CONSUMER_KEY = "J1ga333avvBnilV7MmJ29Uufm";       // Change this
-	public static final String REST_CONSUMER_SECRET = "L3Zp0dzkbRmf865gFP8QKe8C7U0Ne7T76hnQI9OnwPzL1vv5Sv"; // Change this
-	public static final String REST_CALLBACK_URL = "oauth://cpsimpletweets"; // Change this (here and in manifest)
+	//public static final String REST_CONSUMER_KEY = "J1ga333avvBnilV7MmJ29Uufm";       // Change this
+	//public static final String REST_CONSUMER_SECRET = "L3Zp0dzkbRmf865gFP8QKe8C7U0Ne7T76hnQI9OnwPzL1vv5Sv"; // Change this
+    //public static final String REST_CONSUMER_KEY = "J1ga333avvBnilV7MmJ29Uufm";       // Change this
+    //public static final String REST_CONSUMER_SECRET = "L3Zp0dzkbRmf865gFP8QKe8C7U0Ne7T76hnQI9OnwPzL1vv5Sv"; // Change this
+    public static final String REST_CONSUMER_KEY = "nTy0OiIqa861ies84sSVsdQ7C";       // Change this
+    public static final String REST_CONSUMER_SECRET = "PmY1Vb3lmApuTQbg6oOxR0oRn9fMmsEGODkDmZ0MrZGIM9x8hB"; // Change this
+
+    public static final String REST_CALLBACK_URL = "oauth://cpsimpletweets"; // Change this (here and in manifest)
 
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -54,6 +59,26 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("count", 25);
         params.put("since_id", 1);
         getClient().get(apiUrl, params, handler);
+    }
+
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void getUserTimeline (String screenName, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        params.put("screen_name", screenName);
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void getUserInfo (AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("account/verify_credentials.json");
+        getClient().get(apiUrl, null, handler);
     }
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

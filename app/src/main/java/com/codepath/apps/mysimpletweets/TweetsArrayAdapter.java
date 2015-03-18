@@ -39,6 +39,17 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ivProfileImage.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
 
+        /*
+        ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+        */
+
         return convertView;
     }
 }
